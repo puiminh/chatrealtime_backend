@@ -3,12 +3,14 @@ package com.project.chatrealtime_backend.controller;
 import com.project.chatrealtime_backend.exeption.MessageNotFoundException;
 import com.project.chatrealtime_backend.model.Message;
 import com.project.chatrealtime_backend.repository.MessageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class MessageController {
+    @Autowired
     private final MessageRepository repository;
 
     MessageController(MessageRepository repository) {
@@ -19,8 +21,12 @@ public class MessageController {
     // Aggregate root
     // tag::get-aggregate-root[]
     @GetMapping("/messages")
-    List<Message> all() {
-        return (List<Message>) repository.findAll();
+    List<Message> all(@RequestParam(required = false) Integer id_room, @RequestParam(required = false) String name, @RequestParam(required = false) Integer sender) {
+        System.out.println(id_room);
+        System.out.println(name);
+        System.out.println(sender);
+
+        return (List<Message>) repository.findCustom(id_room,name,sender);
     }
     // end::get-aggregate-root[]
 

@@ -18,8 +18,8 @@ class LoadDatabase {
     @Bean
     CommandLineRunner initDatabase(RoomRepository roomRepository, MessageRepository messageRepository) {
         return args -> {
-            log.info("Preloading room: " + roomRepository.save(new Room(1,"Admin",false)));
-            log.info("Preloading message: " + messageRepository.save(new Message("Admin",1,"First message",1)));
+//            log.info("Preloading room: " + roomRepository.save(new Room(1,"Admin",false)));
+//            log.info("Preloading message: " + messageRepository.save(new Message("Admin",1,"First message",1)));
         };
     }
 }
