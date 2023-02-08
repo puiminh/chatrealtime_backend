@@ -27,8 +27,8 @@ public class MessageController {
     // end::get-aggregate-root[]
 
     @PostMapping("/messages")
-    Message newMessage(@RequestBody Message newMessage) {
-        return repository.save(newMessage);
+    Message new_message(@RequestBody Message new_message) {
+        return repository.save(new_message);
     }
 
     // Single item
@@ -41,18 +41,18 @@ public class MessageController {
     }
 
     @PutMapping("/messages/{id}")
-    Message replaceMessage(@RequestBody Message newMessage, @PathVariable Integer id) {
+    Message replaceMessage(@RequestBody Message new_message, @PathVariable Integer id) {
 
         return repository.findById(id)
                 .map(message -> {
-                    message.setMessage(newMessage.getMessage());
-                    message.setSender(newMessage.getSender());
-                    message.setId_room(newMessage.getId_room());
+                    message.setMessage(new_message.getMessage());
+                    message.setSender(new_message.getSender());
+                    message.setId_room(new_message.getId_room());
                     return repository.save(message);
                 })
                 .orElseGet(() -> {
-                    newMessage.setId(id);
-                    return repository.save(newMessage);
+                    new_message.setId(id);
+                    return repository.save(new_message);
                 });
     }
 

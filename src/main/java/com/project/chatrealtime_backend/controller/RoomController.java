@@ -20,11 +20,11 @@ public class RoomController {
     // Aggregate root
     // tag::get-aggregate-root[]
     @GetMapping("/rooms")
-    List<Room> all(@RequestParam(required = false) Boolean newMess, @RequestParam(required = false) String name, @RequestParam(defaultValue = "10") Integer limit) {
-        System.out.println(newMess);
+    List<Room> all(@RequestParam(required = false) Integer new_mess, @RequestParam(required = false) String name, @RequestParam(defaultValue = "10") Integer limit) {
+        System.out.println(new_mess);
         System.out.println(name);
         System.out.println(limit);
-        return (List<Room>) repository.findCustom(newMess, name, limit);
+        return (List<Room>) repository.findCustom(new_mess, name, limit);
     }
     // end::get-aggregate-root[]
 
@@ -48,7 +48,7 @@ public class RoomController {
         return repository.findById(id)
                 .map(room -> {
                     room.setName(newRoom.getName());
-                    room.setNewMess(newRoom.getNewMess());
+                    room.setnew_mess(newRoom.getnew_mess());
                     return repository.save(room);
                 })
                 .orElseGet(() -> {

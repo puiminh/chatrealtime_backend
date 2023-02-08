@@ -10,23 +10,23 @@ public class Room {
 
     private @Id @GeneratedValue Integer id;
     private String name;
-    private Boolean newMess;
+    private Integer new_mess;
 
     @OneToMany(mappedBy = "id_room", cascade = CascadeType.ALL)
     private Collection<Message> messages;
 
     Room() {}
 
-    public Room(Integer id, String name, Boolean newMess, Collection<Message> messages) {
+    public Room(Integer id, String name, Integer new_mess, Collection<Message> messages) {
         this.id = id;
         this.name = name;
-        this.newMess = newMess;
+        this.new_mess = new_mess;
         this.messages = messages;
     }
 
-    public Room(String name, Boolean newMess) {
+    public Room(String name, Integer new_mess) {
         this.name = name;
-        this.newMess = newMess;
+        this.new_mess = new_mess;
     }
 
     public Integer getId() {
@@ -45,12 +45,12 @@ public class Room {
         this.name = name;
     }
 
-    public Boolean getNewMess() {
-        return newMess;
+    public Integer getnew_mess() {
+        return new_mess;
     }
 
-    public void setNewMess(Boolean newMess) {
-        this.newMess = newMess;
+    public void setnew_mess(Integer new_mess) {
+        this.new_mess = new_mess;
     }
 
     public Collection<Message> getMessages() {
@@ -66,14 +66,14 @@ public class Room {
         if (this == o) return true;
         if (!(o instanceof Room)) return false;
         Room room = (Room) o;
-        return Objects.equals(getId(), room.getId()) && Objects.equals(getName(), room.getName()) && Objects.equals(getNewMess(), room.getNewMess());
+        return Objects.equals(getId(), room.getId()) && Objects.equals(getName(), room.getName()) && Objects.equals(getnew_mess(), room.getnew_mess());
     }
 
 
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getNewMess());
+        return Objects.hash(getId(), getName(), getnew_mess());
     }
 
     @Override
@@ -81,7 +81,7 @@ public class Room {
         return "Room{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", newMess=" + newMess +
+                ", new_mess=" + new_mess +
                 '}';
     }
 }

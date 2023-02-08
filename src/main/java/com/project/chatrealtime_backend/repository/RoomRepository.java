@@ -11,5 +11,5 @@ import java.util.List;
 
 public interface RoomRepository extends JpaRepository<Room, Integer> {
     @Query(value = "select * from room where (?1 is null or new_mess = ?1) and (?2 is null or name = ?2) limit ?3", nativeQuery = true)
-    List<Room> findCustom(Boolean newMess, String name, Integer limit);
+    List<Room> findCustom(Integer new_mess, String name, Integer limit);
 }
