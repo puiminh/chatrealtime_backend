@@ -3,13 +3,8 @@ package com.project.chatrealtime_backend.controller;
 import com.project.chatrealtime_backend.exeption.RoomNotFoundException;
 import com.project.chatrealtime_backend.model.Room;
 import com.project.chatrealtime_backend.repository.RoomRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,8 +20,11 @@ public class RoomController {
     // Aggregate root
     // tag::get-aggregate-root[]
     @GetMapping("/rooms")
-    List<Room> all() {
-        return (List<Room>) repository.findAll();
+    List<Room> all(@RequestParam(required = false) Boolean newMess, @RequestParam(required = false) String name, @RequestParam(defaultValue = "10") Integer limit) {
+        System.out.println(newMess);
+        System.out.println(name);
+        System.out.println(limit);
+        return (List<Room>) repository.findCustom(newMess, name, limit);
     }
     // end::get-aggregate-root[]
 

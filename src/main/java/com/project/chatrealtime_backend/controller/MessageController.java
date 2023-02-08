@@ -22,10 +22,6 @@ public class MessageController {
     // tag::get-aggregate-root[]
     @GetMapping("/messages")
     List<Message> all(@RequestParam(required = false) Integer id_room, @RequestParam(required = false) String name, @RequestParam(required = false) Integer sender) {
-        System.out.println(id_room);
-        System.out.println(name);
-        System.out.println(sender);
-
         return (List<Message>) repository.findCustom(id_room,name,sender);
     }
     // end::get-aggregate-root[]
@@ -50,7 +46,6 @@ public class MessageController {
         return repository.findById(id)
                 .map(message -> {
                     message.setName(newMessage.getName());
-                    message.setId_room(newMessage.getId_room());
                     message.setMessage(newMessage.getMessage());
                     message.setSender(newMessage.getSender());
                     return repository.save(message);

@@ -1,9 +1,8 @@
 package com.project.chatrealtime_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -13,12 +12,16 @@ public class Room {
     private String name;
     private Boolean newMess;
 
+    @OneToMany(mappedBy = "id_room", cascade = CascadeType.ALL)
+    private Collection<Message> messages;
+
     Room() {}
 
-    public Room(Integer id, String name, Boolean newMess) {
+    public Room(Integer id, String name, Boolean newMess, Collection<Message> messages) {
         this.id = id;
         this.name = name;
         this.newMess = newMess;
+        this.messages = messages;
     }
 
     public Room(String name, Boolean newMess) {
@@ -50,6 +53,14 @@ public class Room {
         this.newMess = newMess;
     }
 
+    public Collection<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Collection<Message> messages) {
+        this.messages = messages;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,6 +68,8 @@ public class Room {
         Room room = (Room) o;
         return Objects.equals(getId(), room.getId()) && Objects.equals(getName(), room.getName()) && Objects.equals(getNewMess(), room.getNewMess());
     }
+
+
 
     @Override
     public int hashCode() {
