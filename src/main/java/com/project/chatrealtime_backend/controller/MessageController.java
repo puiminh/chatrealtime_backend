@@ -21,8 +21,8 @@ public class MessageController {
     // Aggregate root
     // tag::get-aggregate-root[]
     @GetMapping("/messages")
-    List<Message> all(@RequestParam(required = false) Integer id_room, @RequestParam(required = false) String name, @RequestParam(required = false) Integer sender) {
-        return (List<Message>) repository.findCustom(id_room,name,sender);
+    List<Message> all(@RequestParam(required = false) Integer id_room, @RequestParam(required = false) Integer sender) {
+        return (List<Message>) repository.findCustom(id_room,sender);
     }
     // end::get-aggregate-root[]
 
