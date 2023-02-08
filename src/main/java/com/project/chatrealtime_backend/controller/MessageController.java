@@ -45,9 +45,10 @@ public class MessageController {
 
         return repository.findById(id)
                 .map(message -> {
-                    message.setMessage(new_message.getMessage());
-                    message.setSender(new_message.getSender());
-                    message.setId_room(new_message.getId_room());
+
+                    message.setMessage(new_message.getMessage() != null ? new_message.getMessage() : message.getMessage());
+                    message.setSender(new_message.getSender() != null ? new_message.getSender(): message.getSender());
+                    message.setId_room(new_message.getId_room() != null ? new_message.getId_room() : message.getId_room());
                     return repository.save(message);
                 })
                 .orElseGet(() -> {
