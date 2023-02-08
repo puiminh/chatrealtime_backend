@@ -47,8 +47,12 @@ public class RoomController {
 
         return repository.findById(id)
                 .map(room -> {
-                    room.setName(newRoom.getName());
-                    room.setnew_mess(newRoom.getnew_mess());
+                    if (newRoom.getName() != null) {
+                        room.setName(newRoom.getName());
+                    }
+                    if (newRoom.getnew_mess() != null) {
+                        room.setnew_mess(newRoom.getnew_mess());
+                    }
                     return repository.save(room);
                 })
                 .orElseGet(() -> {
