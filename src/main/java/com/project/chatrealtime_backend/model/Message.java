@@ -9,23 +9,20 @@ import java.util.Objects;
 public class Message {
 
     private @Id @GeneratedValue Integer id;
-    private String name;
     private Integer sender;
     private String message;
     private Integer id_room;
 
     Message() {}
 
-    public Message(String name, Integer sender, String message, Integer id_room) {
-        this.name = name;
+    public Message(Integer sender, String message, Integer id_room) {
         this.sender = sender;
         this.message = message;
         this.id_room = id_room;
     }
 
-    public Message(Integer id, String name, Integer sender, String message, Integer id_room) {
+    public Message(Integer id,Integer sender, String message, Integer id_room) {
         this.id = id;
-        this.name = name;
         this.sender = sender;
         this.message = message;
         this.id_room = id_room;
@@ -37,14 +34,6 @@ public class Message {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Integer getSender() {
@@ -76,19 +65,18 @@ public class Message {
         if (this == o) return true;
         if (!(o instanceof Message)) return false;
         Message message1 = (Message) o;
-        return Objects.equals(getId(), message1.getId()) && Objects.equals(getName(), message1.getName()) && Objects.equals(getSender(), message1.getSender()) && Objects.equals(getMessage(), message1.getMessage()) && Objects.equals(getId_room(), message1.getId_room());
+        return Objects.equals(getId(), message1.getId()) && Objects.equals(getSender(), message1.getSender()) && Objects.equals(getMessage(), message1.getMessage()) && Objects.equals(getId_room(), message1.getId_room());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getName(), getSender(), getMessage(), getId_room());
+        return Objects.hash(getId(), getSender(), getMessage(), getId_room());
     }
 
     @Override
     public String toString() {
         return "Message{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", sender=" + sender +
                 ", message='" + message + '\'' +
                 ", id_room=" + id_room +
