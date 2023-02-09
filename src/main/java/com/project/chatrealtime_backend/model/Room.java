@@ -8,12 +8,9 @@ import java.util.Objects;
 @Entity
 public class Room {
 
-    private @Id @GeneratedValue Integer id;
+    private @Id Integer id;
     private String name;
     private Integer new_mess;
-
-    @OneToMany(mappedBy = "id_room", cascade = CascadeType.ALL)
-    private Collection<Message> messages;
 
     Room() {}
 
@@ -21,7 +18,6 @@ public class Room {
         this.id = id;
         this.name = name;
         this.new_mess = new_mess;
-        this.messages = messages;
     }
 
     public Room(String name, Integer new_mess) {
@@ -53,13 +49,6 @@ public class Room {
         this.new_mess = new_mess;
     }
 
-    public Collection<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(Collection<Message> messages) {
-        this.messages = messages;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -81,7 +70,6 @@ public class Room {
         return "Room{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", new_mess=" + new_mess +
                 '}';
     }
 }

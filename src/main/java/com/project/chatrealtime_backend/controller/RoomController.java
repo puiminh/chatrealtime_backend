@@ -20,13 +20,34 @@ public class RoomController {
     // Aggregate root
     // tag::get-aggregate-root[]
     @GetMapping("/rooms")
-    List<Room> all(@RequestParam(required = false) Integer new_mess, @RequestParam(required = false) String name, @RequestParam(defaultValue = "10") Integer limit) {
-        System.out.println(new_mess);
-        System.out.println(name);
-        System.out.println(limit);
+    List<Room> all(@RequestParam(required = false) Integer new_mess, @RequestParam(required = false) String name, @RequestParam(defaultValue = "100") Integer limit) {
         return (List<Room>) repository.findCustom(new_mess, name, limit);
     }
     // end::get-aggregate-root[]
+
+    @PostMapping("/syncData")
+    List<Room> syncData(@RequestBody List<Room> rooms) {
+        for (Room room: rooms) {
+            System.out.println(room.toString());
+
+            repository.findById(room.getId())
+                    .map(roomfound -> {
+                        if (room.getName() != null) {
+                            roomfound.setName(room.getName());
+                        }
+                        if (room.getnew_mess() != null) {
+                            roomfound.setnew_mess(room.getnew_mess());
+                        }
+                        return repository.save(roomfound);
+                    })
+                    .orElseGet(() -> {
+                        System.out.println("Not found: " + room.toString());
+                        room.setnew_mess(-1);
+                        return repository.save(room);
+                    });
+        }
+        return rooms;
+    }
 
     @PostMapping("/rooms")
     Room newRoom(@RequestBody Room newRoom) {
